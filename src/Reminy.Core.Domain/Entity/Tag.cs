@@ -8,7 +8,7 @@ public sealed class Tag
     {
         Value = value;
     }
-    
+
     public void Set(string value)
         => Value = value;
 }
