@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace Reminy.Core.Host.Composition;
+namespace Reminy.Core.Host.Composition.JsonSerialization;
 
 internal sealed class SnakeCaseNamingPolicy : JsonNamingPolicy
 {

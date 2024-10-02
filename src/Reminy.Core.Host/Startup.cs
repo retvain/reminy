@@ -1,4 +1,4 @@
-﻿using Reminy.Core.Host.Composition;
+﻿using Reminy.Core.Host.Composition.JsonSerialization;
 
 namespace Reminy.Core.Host;
 
