@@ -1,16 +1,17 @@
 ﻿namespace Reminy.Core.Host;
+
 public static class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        builder.Services.AddHttpContextAccessor();
+        var startup = new Startup();
 
-        Startup.ConfigureServices(builder.Services);
+        startup.ConfigureServices(builder.Services);
 
         var app = builder.Build();
-        Startup.ConfigureApp(app);
+        startup.Configure(app, app.Environment);
 
-        Startup.Run(app, args);
+        app.Run();
     }
 }

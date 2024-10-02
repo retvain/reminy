@@ -1,10 +1,10 @@
 <Project>
-    
+
     <PropertyGroup>
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <PackageVersion Include="AutoFixture" Version="4.18.1"/>
         <PackageVersion Include="NUnit" Version="4.2.2"/>
@@ -23,5 +23,5 @@
         <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
         <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.8.1"/>
     </ItemGroup>
-    
+
 </Project>

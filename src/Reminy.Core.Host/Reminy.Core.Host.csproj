@@ -19,4 +19,12 @@
         <PackageReference Include="Swashbuckle.AspNetCore" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Reminy.Core.DomainServices\Reminy.Core.DomainServices.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Converters\User\" />
+    </ItemGroup>
+
 </Project>

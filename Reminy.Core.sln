@@ -8,6 +8,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminy.Core.Domain", "src\R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminy.Core.DomainServices", "src\Reminy.Core.DomainServices\Reminy.Core.DomainServices.csproj", "{91B7E5A1-548D-4B13-B955-B9FF01380359}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminy.Core.Postgres", "src\Reminy.Core.Postgres\Reminy.Core.Postgres.csproj", "{7EDF8A06-63C6-4BFD-8404-B6C574E56AAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{88BD7A46-9A0D-4D79-A6C2-453B0BFC707A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reminy.Core.IntegrationTests", "tests\Reminy.Core.IntegrationTests\Reminy.Core.IntegrationTests.csproj", "{310CE35B-1E0E-4796-9536-0BAE715AF188}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +23,8 @@ Global
 		{36B43999-C983-4D2C-AC2A-11FF3B8DFFBB} = {D275DF35-DDDA-4BF5-8A38-C146E3E97BF8}
 		{F60E3395-CB8D-4F88-BB98-652705AC8320} = {D275DF35-DDDA-4BF5-8A38-C146E3E97BF8}
 		{91B7E5A1-548D-4B13-B955-B9FF01380359} = {D275DF35-DDDA-4BF5-8A38-C146E3E97BF8}
+		{7EDF8A06-63C6-4BFD-8404-B6C574E56AAA} = {D275DF35-DDDA-4BF5-8A38-C146E3E97BF8}
+		{310CE35B-1E0E-4796-9536-0BAE715AF188} = {88BD7A46-9A0D-4D79-A6C2-453B0BFC707A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{36B43999-C983-4D2C-AC2A-11FF3B8DFFBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -31,5 +39,13 @@ Global
 		{91B7E5A1-548D-4B13-B955-B9FF01380359}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91B7E5A1-548D-4B13-B955-B9FF01380359}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91B7E5A1-548D-4B13-B955-B9FF01380359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EDF8A06-63C6-4BFD-8404-B6C574E56AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EDF8A06-63C6-4BFD-8404-B6C574E56AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EDF8A06-63C6-4BFD-8404-B6C574E56AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EDF8A06-63C6-4BFD-8404-B6C574E56AAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{310CE35B-1E0E-4796-9536-0BAE715AF188}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{310CE35B-1E0E-4796-9536-0BAE715AF188}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{310CE35B-1E0E-4796-9536-0BAE715AF188}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{310CE35B-1E0E-4796-9536-0BAE715AF188}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

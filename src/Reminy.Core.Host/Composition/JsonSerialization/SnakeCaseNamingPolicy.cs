@@ -2,7 +2,7 @@
 
 namespace Reminy.Core.Host.Composition.JsonSerialization;
 
-internal sealed class SnakeCaseNamingPolicy : JsonNamingPolicy
+public sealed class SnakeCaseNamingPolicy : JsonNamingPolicy
 {
     public override string ConvertName(string name)
     {

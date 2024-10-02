@@ -6,4 +6,14 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="MediatR" />
+        <PackageReference Include="MediatR.Contracts" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Reminy.Core.Domain\Reminy.Core.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

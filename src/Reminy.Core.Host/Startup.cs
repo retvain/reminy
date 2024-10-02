@@ -1,12 +1,14 @@
-﻿using Reminy.Core.Host.Composition.JsonSerialization;
+﻿using MediatR;
+using Reminy.Core.DomainServices;
+using Reminy.Core.Host.Composition.JsonSerialization;
 
 namespace Reminy.Core.Host;
 
-internal static class Startup
+public class Startup
 {
-    internal static void ConfigureServices(IServiceCollection services)
+    public void ConfigureServices(IServiceCollection services)
     {
-        //services.AddMediatR(typeof(DomainServicesRegistration).Assembly); // todo
+        services.AddMediatR(typeof(DomainServicesRegistration).Assembly);
 
         services.AddAuthorization();
         services.AddEndpointsApiExplorer();
@@ -20,26 +22,21 @@ internal static class Startup
             });
     }
 
-    internal static void ConfigureApp(WebApplication application)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        if (!application.Environment.IsDevelopment())
-            application.UseExceptionHandler("/Error");
+        if (!env.IsDevelopment())
+            app.UseExceptionHandler("/Error");
 
-        application.UseRouting();
-        application.UseAuthorization();
-        AddSwagger(application);
-        application.MapControllers();
+        app.UseRouting();
+        app.UseAuthorization();
+        AddSwagger(app);
+        app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 
-    internal static void Run(WebApplication application, string[] args)
+    private static void AddSwagger(IApplicationBuilder app)
     {
-        application.Run();
-    }
-
-    private static void AddSwagger(WebApplication application)
-    {
-        application.UseSwagger();
-        application.UseSwaggerUI(c =>
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
         {
             c.SwaggerEndpoint("/swagger/v1/swagger.json", "Reminy.Core.Host API v1");
             c.RoutePrefix = string.Empty;
