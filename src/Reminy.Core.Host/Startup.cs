@@ -1,4 +1,4 @@
-﻿using MediatR;
+﻿using Reminy.Core.Host.Composition;
 
 namespace Reminy.Core.Host;
 
@@ -6,11 +6,18 @@ internal static class Startup
 {
     internal static void ConfigureServices(IServiceCollection services)
     {
+        //services.AddMediatR(typeof(DomainServicesRegistration).Assembly); // todo
+
         services.AddAuthorization();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
-        //services.AddMediatR(typeof(DomainServicesRegistration).Assembly); //todo
+        services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = new SnakeCaseNamingPolicy();
+                options.JsonSerializerOptions.DictionaryKeyPolicy = new SnakeCaseNamingPolicy();
+            });
     }
 
     internal static void ConfigureApp(WebApplication application)
