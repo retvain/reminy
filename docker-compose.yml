@@ -1,0 +1,33 @@
+services:
+  reminy-app:
+    depends_on:
+      - reminy-pg
+    volumes:
+      - reminy:/app
+    build:
+      context: .
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - reminy
+
+  reminy-pg:
+    image: postgres:17.0
+    ports:
+      - "54377:5432"
+    environment:
+      POSTGRES_DB: reminy
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - reminy
+        
+volumes:
+  reminy:
+    driver: local
+      
+networks:
+  reminy:
+    name: reminy-network
+    driver: bridge

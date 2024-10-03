@@ -9,6 +9,6 @@ public static class DomainServicesRegistration
 {
     public static void Configure(IServiceCollection services)
     {
-        services.AddTransient<IRequestHandler<RegisterUserCommand>, RegisterUserHandler>();
+        services.AddTransient<IRequestHandler<RegisterUserCommand, Unit>, RegisterUserHandler>();
     }
 }
