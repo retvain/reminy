@@ -7,7 +7,8 @@ internal sealed class RegisterUserHandler : IRequestHandler<RegisterUserCommand,
 {
     public Task<Unit> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        // Ваша логика здесь
+        // todo
+
         return Task.FromResult(Unit.Value);
     }
 }

@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS notes
+(
+    id         BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id    BIGINT      NOT NULL,
+    title      VARCHAR,
+    body       TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

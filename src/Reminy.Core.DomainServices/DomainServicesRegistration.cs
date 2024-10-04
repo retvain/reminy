@@ -1,14 +1,11 @@
-﻿using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Reminy.Core.DomainServices.User.Commands.Register;
-using Reminy.Core.DomainServices.User.Commands.Register.Contracts;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace Reminy.Core.DomainServices;
 
 public static class DomainServicesRegistration
 {
-    public static void Configure(IServiceCollection services)
+    public static IServiceCollection AddDomainServices(this IServiceCollection services)
     {
-        services.AddTransient<IRequestHandler<RegisterUserCommand, Unit>, RegisterUserHandler>();
+        return services;
     }
 }
