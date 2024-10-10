@@ -1,12 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
     <ItemGroup>
         <PackageReference Include="AutoFixture"/>
         <PackageReference Include="NUnit"/>
@@ -18,6 +11,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\src\Reminy.Core.Host\Reminy.Core.Host.csproj"/>
+        <ProjectReference Include="..\Reminy.Core.TestDataInitialization\Reminy.Core.TestDataInitialization.csproj" />
     </ItemGroup>
 
 </Project>

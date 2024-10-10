@@ -23,4 +23,8 @@ public sealed class NoteTests : BaseTest
         result.Header.Should().Be(request.Header);
         result.Content.Should().Be(request.Content);
     }
+
+    [TearDown]
+    public void TearDown()
+        => DataInitializer.Clean();
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Reminy.Core.IntegrationTests.Tools;
+using Reminy.Core.Postgres.Contracts;
 
 namespace Reminy.Core.IntegrationTests;
 
@@ -15,6 +16,8 @@ internal sealed class SetUpGlobal
     {
         _factory = new TestWebApplicationFactory();
         Client = new TestClient(_factory.CreateDefaultClient());
+
+        GetService<IMigrator>().Migrate();
     }
 
     public static T GetService<T>() where T : notnull

@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Reminy.Core.Host;
+using Reminy.Core.IntegrationTests.Data;
+using Reminy.Core.TestDataInitialization;
 
 namespace Reminy.Core.IntegrationTests.Tools;
 
@@ -15,6 +18,10 @@ internal sealed class TestWebApplicationFactory : WebApplicationFactory<Startup>
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureServices(services => { });
+        builder.ConfigureServices(services =>
+        {
+            services.AddSingleton<TestNotesStore>();
+            services.AddSingleton<DataInitializer>();
+        });
     }
 }
