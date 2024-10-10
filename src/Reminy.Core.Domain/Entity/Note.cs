@@ -1,28 +1,24 @@
 ﻿namespace Reminy.Core.Domain.Entity;
 
-public sealed class Note
+public sealed class Note(
+    long id,
+    string header,
+    string content,
+    IReadOnlyCollection<Tag> tags)
 {
-    public long Id { get; private set; }
+    public long Id { get; private set; } = id;
 
-    public string Header { get; private set; }
+    public string Header { get; private set; } = header;
 
-    public string Body { get; private set; }
+    public string Content { get; private set; } = content;
 
-    public IReadOnlyCollection<Tag> Tags { get; private set; }
-
-    public Note(long id, string header, string body, IReadOnlyCollection<Tag> tags)
-    {
-        Id = id;
-        Header = header;
-        Body = body;
-        Tags = tags;
-    }
+    public IReadOnlyCollection<Tag> Tags { get; private set; } = tags;
 
     public void SetHeader(string header)
         => Header = header;
 
     public void SetBody(string body)
-        => Body = body;
+        => Content = body;
 
     public void SetTags(IReadOnlyCollection<Tag> tags)
         => Tags = tags;

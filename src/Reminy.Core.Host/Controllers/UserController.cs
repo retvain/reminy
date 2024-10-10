@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Reminy.Core.DomainServices.User.Commands.Register.Contracts;
-using Reminy.Core.Host.Contracts;
+using Reminy.Core.Host.Dto;
 
 namespace Reminy.Core.Host.Controllers;
 

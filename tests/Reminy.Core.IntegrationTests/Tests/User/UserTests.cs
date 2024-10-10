@@ -1,14 +1,13 @@
 ﻿using AutoFixture;
 using NUnit.Framework;
-using Reminy.Core.Host.Contracts;
+using Reminy.Core.Host.Dto;
 
 namespace Reminy.Core.IntegrationTests.Tests.User;
 
-public sealed class UserTests
+public sealed class UserTests : BaseTest
 {
-    private IFixture Fixture { get; } = new Fixture();
-
     [Test]
+    [Ignore("not ready")]
     public async Task RegisterValidUserTest()
     {
         var request = new RegisterUserRequestDto

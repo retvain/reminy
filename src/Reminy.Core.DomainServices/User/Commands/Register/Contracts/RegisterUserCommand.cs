@@ -6,8 +6,7 @@ public sealed class RegisterUserCommand(
     string email,
     string firstName,
     string lastName,
-    string password)
-    : IRequest<Unit>
+    string password) : IRequest<Unit>
 {
     public string Email { get; } = email;
     public string FirstName { get; } = firstName;

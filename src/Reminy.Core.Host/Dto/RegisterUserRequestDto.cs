@@ -1,4 +1,4 @@
-﻿namespace Reminy.Core.Host.Contracts;
+﻿namespace Reminy.Core.Host.Dto;
 
 public sealed class RegisterUserRequestDto
 {
