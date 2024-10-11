@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Upload source code
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: source-code
           path: .
@@ -26,12 +26,12 @@ jobs:
 
     steps:
       - name: Download source code
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: source-code
 
       - name: Set up .NET Core
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
@@ -42,7 +42,7 @@ jobs:
         run: dotnet build --no-restore
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: .
@@ -53,18 +53,12 @@ jobs:
 
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
 
       - name: Run unit tests
-        run: dotnet test --no-build --logger "trx;LogFileName=unit-test-results.trx" --verbosity normal
-
-      - name: Upload unit test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: unit-test-results
-          path: '**/unit-test-results.trx'
+        run: dotnet test --no-build --verbosity normal
 
   integration-test:
     runs-on: ubuntu-latest
@@ -81,15 +75,9 @@ jobs:
 
     steps:
       - name: Download build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-artifacts
 
       - name: Run integration tests
-        run: dotnet test --no-build --logger "trx;LogFileName=integration-test-results.trx" --verbosity normal
-
-      - name: Upload integration test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: integration-test-results
-          path: '**/integration-test-results.trx'
+        run: dotnet test --no-build --verbosity normal
