@@ -3,7 +3,7 @@ using Reminy.Core.Postgres.Contracts;
 
 namespace Reminy.Core.TestDataInitialization;
 
-public sealed class TestNotesStore(IConnectionFactory connectionFactory) : IDisposable
+public sealed class TestNoteStore(IConnectionFactory connectionFactory) : IDisposable
 {
     public void Truncate()
     {

@@ -1,14 +1,17 @@
 ﻿using MediatR;
 using Reminy.Core.DomainServices.Note.Commands.Create.Contracts;
+using Reminy.Core.DomainServices.Note.Commands.Create.Ports;
 
 namespace Reminy.Core.DomainServices.Note.Commands.Create;
 
 using DomainNote = Domain.Entity.Note;
 
-internal sealed class CreateNoteHandler : IRequestHandler<CreateNoteCommand, DomainNote>
+internal sealed class CreateNoteHandler(INoteStore noteStore) : IRequestHandler<CreateNoteCommand, DomainNote>
 {
-    public Task<DomainNote> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
+    public async Task<DomainNote> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var note = await noteStore.Create(request.CreateNote);
+
+        return note;
     }
 }

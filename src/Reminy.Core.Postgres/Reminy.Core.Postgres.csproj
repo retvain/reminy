@@ -2,12 +2,17 @@
 
     <ItemGroup>
         <PackageReference Include="Npgsql"/>
+        <PackageReference Include="Dapper"/>
     </ItemGroup>
 
     <ItemGroup>
         <EmbeddedResource Include="Migrations\*.sql">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Reminy.Core.DomainServices\Reminy.Core.DomainServices.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,20 +2,20 @@
 
 public sealed class Note(
     long id,
-    string header,
+    string title,
     string content,
     IReadOnlyCollection<Tag> tags)
 {
     public long Id { get; private set; } = id;
 
-    public string Header { get; private set; } = header;
+    public string Title { get; private set; } = title;
 
     public string Content { get; private set; } = content;
 
     public IReadOnlyCollection<Tag> Tags { get; private set; } = tags;
 
     public void SetHeader(string header)
-        => Header = header;
+        => Title = header;
 
     public void SetBody(string body)
         => Content = body;

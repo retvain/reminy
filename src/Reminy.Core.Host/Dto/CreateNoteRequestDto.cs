@@ -2,7 +2,7 @@
 
 public sealed class CreateNoteRequestDto
 {
-    public required string Header { get; set; }
+    public required string Title { get; set; }
 
     public required string Content { get; set; }
 }

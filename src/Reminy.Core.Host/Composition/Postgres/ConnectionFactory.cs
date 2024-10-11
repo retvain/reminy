@@ -1,5 +1,4 @@
 ﻿using Npgsql;
-using Reminy.Core.Postgres;
 using Reminy.Core.Postgres.Contracts;
 
 namespace Reminy.Core.Host.Composition.Postgres;

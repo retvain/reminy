@@ -2,8 +2,8 @@
 
 namespace Reminy.Core.IntegrationTests.Data;
 
-public sealed class DataInitializer(TestNotesStore testNotesStore)
+public sealed class DataInitializer(TestNoteStore testNoteStore)
 {
     public void Clean() =>
-        testNotesStore.Truncate();
+        testNoteStore.Truncate();
 }

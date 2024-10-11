@@ -12,7 +12,7 @@ public sealed class NoteTests : BaseTest
     {
         var request = new CreateNoteRequestDto
         {
-            Header = Fixture.Create<string>(),
+            Title = Fixture.Create<string>(),
             Content = Fixture.Create<string>()
         };
 
@@ -20,7 +20,7 @@ public sealed class NoteTests : BaseTest
 
         result.Id.Should().NotBe(default);
         result.Id.Should().BeGreaterThan(0);
-        result.Header.Should().Be(request.Header);
+        result.Title.Should().Be(request.Title);
         result.Content.Should().Be(request.Content);
     }
 

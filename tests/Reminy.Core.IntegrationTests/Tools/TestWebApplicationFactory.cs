@@ -20,7 +20,7 @@ internal sealed class TestWebApplicationFactory : WebApplicationFactory<Startup>
     {
         builder.ConfigureServices(services =>
         {
-            services.AddSingleton<TestNotesStore>();
+            services.AddSingleton<TestNoteStore>();
             services.AddSingleton<DataInitializer>();
         });
     }
