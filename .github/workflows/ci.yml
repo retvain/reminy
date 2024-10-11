@@ -64,7 +64,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: unit-test-results
-          path: unit-test-results.trx
+          path: '**/unit-test-results.trx'
 
   integration-test:
     runs-on: ubuntu-latest
@@ -92,4 +92,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: integration-test-results
-          path: integration-test-results.trx
+          path: '**/integration-test-results.trx'
