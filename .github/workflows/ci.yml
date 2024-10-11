@@ -58,7 +58,13 @@ jobs:
           name: build-artifacts
 
       - name: Run unit tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --logger "trx;LogFileName=unit-test-results.trx" --verbosity normal
+
+      - name: Upload unit test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit-test-results
+          path: unit-test-results.trx
 
   integration-test:
     runs-on: ubuntu-latest
@@ -80,4 +86,10 @@ jobs:
           name: build-artifacts
 
       - name: Run integration tests
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test --no-build --logger "trx;LogFileName=integration-test-results.trx" --verbosity normal
+
+      - name: Upload integration test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: integration-test-results
+          path: integration-test-results.trx
