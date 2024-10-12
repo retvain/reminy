@@ -35,7 +35,7 @@ services:
       context: .
       dockerfile: docker/migrate/Dockerfile
     environment:
-      - ASPNETCORE_ENVIRONMENT=Staging
+      - "ASPNETCORE_ENVIRONMENT=Staging"
     networks:
       - reminy
 
