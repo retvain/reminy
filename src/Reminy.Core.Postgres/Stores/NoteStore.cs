@@ -11,7 +11,7 @@ namespace Reminy.Core.Postgres.Stores;
 
 internal sealed class NoteStore(IConnectionFactory connectionFactory) : INoteStore
 {
-    public async Task<Note> Create(CreateNote createNote, CancellationToken cancellationToken)
+    public async Task Create(CreateNote createNote, CancellationToken cancellationToken)
     {
         const string query = @"
             INSERT INTO
@@ -31,14 +31,10 @@ internal sealed class NoteStore(IConnectionFactory connectionFactory) : INoteSto
             cancellationToken: cancellationToken);
 
         await using var connection = connectionFactory.Create();
-        var noteRaw = await connection.QueryFirstAsync<NoteRaw>(commandDefinition);
-
-        var note = NoteConverter.ToDomain(noteRaw);
-
-        return note;
+        await connection.QueryAsync(commandDefinition);
     }
 
-    public async Task<Note> Update(UpdateNote updateNote, CancellationToken cancellationToken)
+    public async Task Update(UpdateNote updateNote, CancellationToken cancellationToken)
     {
         const string query = @"
             UPDATE notes
@@ -46,7 +42,7 @@ internal sealed class NoteStore(IConnectionFactory connectionFactory) : INoteSto
                 title = @Title,
                 content = @Content
             WHERE id = @Id
-            RETURNING id, title, content";
+            RETURNING id";
 
         var commandDefinition = new CommandDefinition(
             query,
@@ -59,14 +55,10 @@ internal sealed class NoteStore(IConnectionFactory connectionFactory) : INoteSto
             cancellationToken: cancellationToken);
 
         await using var connection = connectionFactory.Create();
-        var noteRaw = await connection.QueryFirstAsync<NoteRaw>(commandDefinition);
+        var noteId = await connection.QueryFirstAsync<long?>(commandDefinition);
 
-        if (noteRaw == null)
+        if (!noteId.HasValue)
             throw new KeyNotFoundException($"note with id {updateNote.Id} not found");
-
-        var note = NoteConverter.ToDomain(noteRaw);
-
-        return note;
     }
 
     public async Task<Note> Get(long noteId, CancellationToken cancellationToken)

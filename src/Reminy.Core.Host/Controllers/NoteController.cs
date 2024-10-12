@@ -15,14 +15,14 @@ namespace Reminy.Core.Host.Controllers;
 public sealed class NoteController(IMediator mediator) : ControllerBase
 {
     [HttpPost("create")]
-    public async Task<OkObjectResult> Create([FromBody] CreateNoteRequestDto requestDto)
+    public async Task<IActionResult> Create([FromBody] CreateNoteRequestDto requestDto)
     {
         var createNote = new CreateNote(Title: requestDto.Title, Content: requestDto.Content);
         var createNoteCommand = new CreateNoteCommand(createNote);
 
-        var note = await mediator.Send(createNoteCommand);
+        await mediator.Send(createNoteCommand);
 
-        return Ok(note);
+        return Ok();
     }
 
     [HttpPost("update")]
@@ -31,12 +31,16 @@ public sealed class NoteController(IMediator mediator) : ControllerBase
         var updateNote = new UpdateNote(Id: requestDto.Id, Title: requestDto.Title, Content: requestDto.Content);
         var updateNoteCommand = new UpdateNoteCommand(updateNote);
 
-        var note = await mediator.Send(updateNoteCommand);
-
-        if (note == null)
+        try
+        {
+            await mediator.Send(updateNoteCommand);
+        }
+        catch (KeyNotFoundException)
+        {
             return NotFound($"note with id {requestDto.Id} not found");
+        }
 
-        return Ok(note);
+        return Ok();
     }
 
     [HttpPost("get")]

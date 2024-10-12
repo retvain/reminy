@@ -1,25 +1,15 @@
 ﻿using MediatR;
-using Reminy.Core.Domain.Entity;
 using Reminy.Core.DomainServices.Notes.Commands.Update.Contracts;
 using Reminy.Core.DomainServices.Notes.Ports;
 
 namespace Reminy.Core.DomainServices.Notes.Commands.Update;
 
-internal sealed class UpdateNoteHandler(INoteStore noteStore) : IRequestHandler<UpdateNoteCommand, Note?>
+internal sealed class UpdateNoteHandler(INoteStore noteStore) : IRequestHandler<UpdateNoteCommand, Unit>
 {
-    public async Task<Note?> Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
     {
-        Note? note;
+        await noteStore.Update(request.UpdateNote, cancellationToken);
 
-        try
-        {
-            note = await noteStore.Update(request.UpdateNote, cancellationToken);
-        }
-        catch (KeyNotFoundException)
-        {
-            return null;
-        }
-
-        return note;
+        return Unit.Value;
     }
 }

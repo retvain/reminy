@@ -6,8 +6,8 @@ namespace Reminy.Core.DomainServices.Notes.Ports;
 
 public interface INoteStore
 {
-    Task<Note> Create(CreateNote createNote, CancellationToken cancellationToken);
-    Task<Note> Update(UpdateNote updateNote, CancellationToken cancellationToken);
+    Task Create(CreateNote createNote, CancellationToken cancellationToken);
+    Task Update(UpdateNote updateNote, CancellationToken cancellationToken);
     Task<Note> Get(long noteId, CancellationToken cancellationToken);
     Task<IReadOnlyCollection<Note>> Get(CancellationToken cancellationToken);
     Task Delete(long noteId, CancellationToken cancellationToken);

@@ -21,7 +21,10 @@ public sealed class NoteTests
             Content = _fixture.Create<string>()
         };
 
-        var result = await SetUpGlobal.Client.CreateNote(request);
+        await SetUpGlobal.Client.CreateNote(request);
+
+        var notes = await SetUpGlobal.Client.GetNotes(new GetNotesRequestDto());
+        var result = notes.First();
 
         result.Id.Should().NotBe(default);
         result.Id.Should().BeGreaterThan(0);
@@ -42,7 +45,9 @@ public sealed class NoteTests
             Content = _fixture.Create<string>()
         };
 
-        var result = await SetUpGlobal.Client.UpdateNote(request);
+        await SetUpGlobal.Client.UpdateNote(request);
+
+        var result = await SetUpGlobal.Client.GetNote(new GetNoteRequestDto { Id = initialNote.Id!.Value });
 
         result.Id.Should().Be(request.Id);
         result.Title.Should().Be(request.Title).And.NotBe(initialNote.Title);
