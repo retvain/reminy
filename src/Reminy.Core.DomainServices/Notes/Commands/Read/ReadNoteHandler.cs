@@ -10,7 +10,7 @@ internal sealed class ReadNoteHandler(INoteStore noteStore) : IRequestHandler<Re
     public async Task<Note?> Handle(ReadNoteCommand request, CancellationToken cancellationToken)
     {
         Note? note;
-        
+
         try
         {
             note = await noteStore.Get(request.NoteId, cancellationToken);
@@ -19,7 +19,7 @@ internal sealed class ReadNoteHandler(INoteStore noteStore) : IRequestHandler<Re
         {
             return null;
         }
-        
+
         return note;
     }
 }

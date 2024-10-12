@@ -37,7 +37,7 @@ public sealed class NoteController(IMediator mediator) : ControllerBase
 
         return Ok(note);
     }
-    
+
     [HttpPost("get")]
     public async Task<IActionResult> Update([FromBody] GetNoteRequestDto requestDto)
     {

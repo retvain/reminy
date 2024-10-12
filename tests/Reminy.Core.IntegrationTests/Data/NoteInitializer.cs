@@ -19,6 +19,18 @@ public sealed class NoteInitializer(NotesTable notesTable)
         return await notesTable.Insert(note);
     }
 
+    public async Task<IReadOnlyCollection<Note>> AddNotes(int count)
+    {
+        var notes = new List<Note>();
+
+        for (var i = 0; i < count; i++)
+        {
+            notes.Add(await AddNote());
+        }
+
+        return notes.ToArray();
+    }
+
     public async Task Clean()
         => await notesTable.Truncate();
 }

@@ -13,4 +13,7 @@ internal static class NoteConverter
             content: noteRaw.content,
             tags: Array.Empty<Tag>());
     }
+
+    public static IReadOnlyCollection<Note> ToDomain(IEnumerable<NoteRaw> notesRaw)
+        => notesRaw.Select(ToDomain).ToArray();
 }

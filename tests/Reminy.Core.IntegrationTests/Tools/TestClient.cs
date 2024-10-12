@@ -22,9 +22,12 @@ internal sealed class TestClient(HttpClient httpClient) : IDisposable
 
     public async Task<Note> UpdateNote(UpdateNoteRequestDto request)
         => await PostRequest<UpdateNoteRequestDto, Note>("/api/v1/note/update", request);
-    
+
     public async Task<Note> GetNote(GetNoteRequestDto request)
         => await PostRequest<GetNoteRequestDto, Note>("/api/v1/note/get", request);
+
+    public async Task<IReadOnlyCollection<Note>> GetNotes(GetNotesRequestDto request)
+        => await PostRequest<GetNotesRequestDto, IReadOnlyCollection<Note>>("/api/v1/notes/get", request);
 
     private async Task<TResponse> PostRequest<TRequest, TResponse>(string url, TRequest request)
     {

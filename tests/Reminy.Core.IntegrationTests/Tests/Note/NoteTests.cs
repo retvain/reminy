@@ -32,6 +32,7 @@ public sealed class NoteTests
     public async Task UpdateOneValidNote_Test()
     {
         var initialNote = await _noteInitializer.AddNote();
+        var anotherNote = await _noteInitializer.AddNote();
 
         var request = new UpdateNoteRequestDto
         {
@@ -45,6 +46,10 @@ public sealed class NoteTests
         result.Id.Should().Be(request.Id);
         result.Title.Should().Be(request.Title).And.NotBe(initialNote.Title);
         result.Content.Should().Be(request.Content).And.NotBe(initialNote.Content);
+
+        var readAnotherNote = await SetUpGlobal.Client.GetNote(new GetNoteRequestDto { Id = anotherNote.Id!.Value });
+
+        readAnotherNote.Should().BeEquivalentTo(anotherNote);
     }
 
     [Test]
@@ -58,6 +63,27 @@ public sealed class NoteTests
         result.Id.Should().Be(request.Id);
         result.Title.Should().Be(note.Title);
         result.Content.Should().Be(note.Content);
+    }
+
+    [Test]
+    public async Task ReadManyNotes_Test()
+    {
+        const int noteCount = 10;
+
+        var notes = await _noteInitializer.AddNotes(noteCount);
+        var request = new GetNotesRequestDto();
+
+        var resultNotes = await SetUpGlobal.Client.GetNotes(request);
+
+        resultNotes.Count.Should().Be(noteCount);
+
+        foreach (var note in resultNotes)
+        {
+            var expected = notes.First(n => n.Id == note.Id);
+
+            note.Title.Should().Be(expected.Title);
+            note.Content.Should().Be(expected.Content);
+        }
     }
 
     [TearDown]
