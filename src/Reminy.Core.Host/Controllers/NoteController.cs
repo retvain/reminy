@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Reminy.Core.DomainServices.Notes.Commands.Create.Contracts;
 using Reminy.Core.DomainServices.Notes.Commands.Create.Models;
+using Reminy.Core.DomainServices.Notes.Commands.Delete.Contracts;
 using Reminy.Core.DomainServices.Notes.Commands.Read.Contracts;
 using Reminy.Core.DomainServices.Notes.Commands.Update.Contracts;
 using Reminy.Core.DomainServices.Notes.Commands.Update.Models;
@@ -49,5 +50,15 @@ public sealed class NoteController(IMediator mediator) : ControllerBase
             return NotFound($"note with id {requestDto.Id} not found");
 
         return Ok(note);
+    }
+
+    [HttpPost("delete")]
+    public async Task<IActionResult> Delete([FromBody] DeleteNoteRequestDto requestDto)
+    {
+        var deleteNoteCommand = new DeleteNoteCommand(requestDto.Id);
+
+        await mediator.Send(deleteNoteCommand);
+
+        return Ok();
     }
 }

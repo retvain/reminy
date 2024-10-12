@@ -15,21 +15,33 @@ internal sealed class TestClient(HttpClient httpClient) : IDisposable
     };
 
     public async Task<User> RegisterUser(RegisterUserRequestDto request)
-        => await PostRequest<RegisterUserRequestDto, User>("/api/v1/user/register", request);
+        => await PostWithResponse<RegisterUserRequestDto, User>("/api/v1/user/register", request);
 
     public async Task<Note> CreateNote(CreateNoteRequestDto request)
-        => await PostRequest<CreateNoteRequestDto, Note>("/api/v1/note/create", request);
+        => await PostWithResponse<CreateNoteRequestDto, Note>("/api/v1/note/create", request);
 
     public async Task<Note> UpdateNote(UpdateNoteRequestDto request)
-        => await PostRequest<UpdateNoteRequestDto, Note>("/api/v1/note/update", request);
+        => await PostWithResponse<UpdateNoteRequestDto, Note>("/api/v1/note/update", request);
 
     public async Task<Note> GetNote(GetNoteRequestDto request)
-        => await PostRequest<GetNoteRequestDto, Note>("/api/v1/note/get", request);
+        => await PostWithResponse<GetNoteRequestDto, Note>("/api/v1/note/get", request);
 
     public async Task<IReadOnlyCollection<Note>> GetNotes(GetNotesRequestDto request)
-        => await PostRequest<GetNotesRequestDto, IReadOnlyCollection<Note>>("/api/v1/notes/get", request);
+        => await PostWithResponse<GetNotesRequestDto, IReadOnlyCollection<Note>>("/api/v1/notes/get", request);
 
-    private async Task<TResponse> PostRequest<TRequest, TResponse>(string url, TRequest request)
+    public async Task DeleteNote(DeleteNoteRequestDto request)
+        => await Post("/api/v1/note/delete", request);
+
+    private async Task<TResponse> PostWithResponse<TRequest, TResponse>(string url, TRequest request)
+    {
+        var response = await Post(url, request);
+        var responseJson = await response.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<TResponse>(responseJson, _serializeOptionsDefault)
+               ?? throw new ApplicationException($"Cannot deserialize response {responseJson}");
+    }
+
+    private async Task<HttpResponseMessage> Post<TRequest>(string url, TRequest request)
     {
         using var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);
         requestMessage.Content = JsonContent.Create(request, options: _serializeOptionsDefault);
@@ -37,10 +49,7 @@ internal sealed class TestClient(HttpClient httpClient) : IDisposable
         var response = await httpClient.SendAsync(requestMessage);
         response.EnsureSuccessStatusCode();
 
-        var responseJson = await response.Content.ReadAsStringAsync();
-
-        return JsonSerializer.Deserialize<TResponse>(responseJson, _serializeOptionsDefault)
-               ?? throw new ApplicationException($"Cannot deserialize response {responseJson}");
+        return response;
     }
 
     public void Dispose()

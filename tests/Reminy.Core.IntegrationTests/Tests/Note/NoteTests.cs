@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System.Net;
+using AutoFixture;
 using FluentAssertions;
 using NUnit.Framework;
 using Reminy.Core.Host.Dto;
@@ -60,7 +61,7 @@ public sealed class NoteTests
 
         var result = await SetUpGlobal.Client.GetNote(request);
 
-        result.Id.Should().Be(request.Id);
+        result.Id.Should().Be(note.Id);
         result.Title.Should().Be(note.Title);
         result.Content.Should().Be(note.Content);
     }
@@ -83,6 +84,35 @@ public sealed class NoteTests
 
             note.Title.Should().Be(expected.Title);
             note.Content.Should().Be(expected.Content);
+        }
+    }
+
+    [Test]
+    public async Task DeleteNote_Test()
+    {
+        var note = await _noteInitializer.AddNote();
+
+        var requestBeforeDeleting = new GetNoteRequestDto { Id = note.Id!.Value };
+        var resultBeforeDeleting = await SetUpGlobal.Client.GetNote(requestBeforeDeleting);
+
+        resultBeforeDeleting.Id.Should().Be(note.Id);
+        resultBeforeDeleting.Title.Should().Be(note.Title);
+        resultBeforeDeleting.Content.Should().Be(note.Content);
+
+        var request = new DeleteNoteRequestDto { Id = note.Id!.Value };
+        await SetUpGlobal.Client.DeleteNote(request);
+
+        var requestAfterDeleting = new GetNoteRequestDto { Id = note.Id!.Value };
+        try
+        {
+            await SetUpGlobal.Client.GetNote(requestAfterDeleting);
+
+            throw new AssertionException($"Note with id {note.Id} is not deleted");
+        }
+        catch (HttpRequestException e)
+        {
+            if (e.StatusCode != HttpStatusCode.NotFound)
+                throw;
         }
     }
 

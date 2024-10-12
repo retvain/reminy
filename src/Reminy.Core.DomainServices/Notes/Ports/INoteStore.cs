@@ -10,4 +10,5 @@ public interface INoteStore
     Task<Note> Update(UpdateNote updateNote, CancellationToken cancellationToken);
     Task<Note> Get(long noteId, CancellationToken cancellationToken);
     Task<IReadOnlyCollection<Note>> Get(CancellationToken cancellationToken);
+    Task Delete(long noteId, CancellationToken cancellationToken);
 }

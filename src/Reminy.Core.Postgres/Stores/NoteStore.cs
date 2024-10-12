@@ -87,7 +87,7 @@ internal sealed class NoteStore(IConnectionFactory connectionFactory) : INoteSto
             cancellationToken: cancellationToken);
 
         await using var connection = connectionFactory.Create();
-        var noteRaw = await connection.QueryFirstAsync<NoteRaw>(commandDefinition);
+        var noteRaw = await connection.QueryFirstOrDefaultAsync<NoteRaw?>(commandDefinition);
 
         if (noteRaw == null)
             throw new KeyNotFoundException($"note with id {noteId} not found");
@@ -115,5 +115,23 @@ internal sealed class NoteStore(IConnectionFactory connectionFactory) : INoteSto
         var notes = NoteConverter.ToDomain(notesRaw);
 
         return notes;
+    }
+
+    public async Task Delete(long noteId, CancellationToken cancellationToken)
+    {
+        const string query = @"
+            DELETE FROM notes
+            WHERE id = @Id";
+
+        var commandDefinition = new CommandDefinition(
+            query,
+            new
+            {
+                Id = noteId
+            },
+            cancellationToken: cancellationToken);
+
+        await using var connection = connectionFactory.Create();
+        await connection.QueryAsync(commandDefinition);
     }
 }
