@@ -21,5 +21,4 @@ COPY --from=build /app/publish .
 
 EXPOSE 5000
 
-ENV ASPNETCORE_ENVIRONMENT=Staging
 ENTRYPOINT ["dotnet", "Reminy.Core.Host.dll", "-migrate"]
