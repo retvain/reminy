@@ -33,7 +33,6 @@ services:
     build:
       context: .
       dockerfile: docker/migrate/Dockerfile
-    restart: no
     networks:
       - reminy
 
