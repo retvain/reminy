@@ -2,10 +2,12 @@ services:
   reminy-app:
     depends_on:
       - reminy-pg
+      - reminy-migrate
     volumes:
       - reminy:/app
     build:
       context: .
+      dockerfile: docker/app/Dockerfile
     restart: always
     ports:
       - 8080:8080
@@ -13,7 +15,7 @@ services:
       - reminy
 
   reminy-pg:
-    image: postgres:17.0
+    image: postgres:16.0
     ports:
       - "54377:5432"
     environment:
@@ -23,11 +25,23 @@ services:
     networks:
       - reminy
         
-volumes:
-  reminy:
-    driver: local
-      
+  reminy-migrate:
+    depends_on:
+      - reminy-pg
+    volumes:
+      - reminy:/app
+    build:
+      context: .
+      dockerfile: docker/migrate/Dockerfile
+    restart: no
+    networks:
+      - reminy
+
 networks:
   reminy:
     name: reminy-network
     driver: bridge
+
+volumes:
+  reminy:
+    driver: local

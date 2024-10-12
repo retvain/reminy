@@ -30,8 +30,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Открываем порт
+ENV ASPNETCORE_ENVIRONMENT=Staging
+
 EXPOSE 5000
 
-# Запуск приложения
-ENTRYPOINT ["dotnet", "Reminy.Core.Host.dll"]
+ENTRYPOINT ["dotnet", "Reminy.Core.Host.dll", "-migrate"]
