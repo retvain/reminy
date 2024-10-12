@@ -2,7 +2,6 @@ services:
   reminy-app:
     depends_on:
       - reminy-pg
-      - reminy-migrate
     volumes:
       - reminy:/app
     build:
