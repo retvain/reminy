@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Reminy.Core.DomainServices.Note.Commands.Create.Contracts;
-using Reminy.Core.DomainServices.Note.Commands.Create.Ports;
+using Reminy.Core.DomainServices.Note.Ports;
 
 namespace Reminy.Core.DomainServices.Note.Commands.Create;
 
@@ -10,7 +10,7 @@ internal sealed class CreateNoteHandler(INoteStore noteStore) : IRequestHandler<
 {
     public async Task<DomainNote> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
     {
-        var note = await noteStore.Create(request.CreateNote);
+        var note = await noteStore.Create(request.CreateNote, cancellationToken);
 
         return note;
     }

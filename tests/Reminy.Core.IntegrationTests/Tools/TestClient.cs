@@ -20,6 +20,9 @@ internal sealed class TestClient(HttpClient httpClient) : IDisposable
     public async Task<Note> CreateNote(CreateNoteRequestDto request)
         => await PostRequest<CreateNoteRequestDto, Note>("/api/v1/note/create", request);
 
+    public async Task<Note> UpdateNote(UpdateNoteRequestDto request)
+        => await PostRequest<UpdateNoteRequestDto, Note>("/api/v1/note/update", request);
+
     private async Task<TResponse> PostRequest<TRequest, TResponse>(string url, TRequest request)
     {
         using var requestMessage = new HttpRequestMessage(HttpMethod.Post, url);

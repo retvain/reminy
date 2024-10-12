@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Reminy.Core.Host;
 using Reminy.Core.IntegrationTests.Data;
-using Reminy.Core.TestDataInitialization;
+using Reminy.Core.TestDataInitialization.Tables;
 
 namespace Reminy.Core.IntegrationTests.Tools;
 
@@ -20,8 +20,10 @@ internal sealed class TestWebApplicationFactory : WebApplicationFactory<Startup>
     {
         builder.ConfigureServices(services =>
         {
-            services.AddSingleton<TestNoteStore>();
-            services.AddSingleton<DataInitializer>();
+            services.AddSingleton<NotesTable>();
+            services.AddSingleton<TagsTable>();
+            services.AddSingleton<NoteTagsTable>();
+            services.AddSingleton<NoteInitializer>();
         });
     }
 }
