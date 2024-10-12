@@ -1,4 +1,4 @@
-﻿namespace Reminy.Core.DomainServices.Note.Commands.Create.Models;
+﻿namespace Reminy.Core.DomainServices.Notes.Commands.Create.Models;
 
 public sealed record CreateNote(
     string Title,

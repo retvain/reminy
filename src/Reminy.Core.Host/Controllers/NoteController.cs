@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Reminy.Core.DomainServices.Note.Commands.Create.Contracts;
-using Reminy.Core.DomainServices.Note.Commands.Create.Models;
-using Reminy.Core.DomainServices.Note.Commands.Update.Contracts;
-using Reminy.Core.DomainServices.Note.Commands.Update.Models;
+using Reminy.Core.DomainServices.Notes.Commands.Create.Contracts;
+using Reminy.Core.DomainServices.Notes.Commands.Create.Models;
+using Reminy.Core.DomainServices.Notes.Commands.Read.Contracts;
+using Reminy.Core.DomainServices.Notes.Commands.Update.Contracts;
+using Reminy.Core.DomainServices.Notes.Commands.Update.Models;
 using Reminy.Core.Host.Dto;
 
 namespace Reminy.Core.Host.Controllers;
@@ -30,6 +31,19 @@ public sealed class NoteController(IMediator mediator) : ControllerBase
         var updateNoteCommand = new UpdateNoteCommand(updateNote);
 
         var note = await mediator.Send(updateNoteCommand);
+
+        if (note == null)
+            return NotFound($"note with id {requestDto.Id} not found");
+
+        return Ok(note);
+    }
+    
+    [HttpPost("get")]
+    public async Task<IActionResult> Update([FromBody] GetNoteRequestDto requestDto)
+    {
+        var readNoteCommand = new ReadNoteCommand(requestDto.Id);
+
+        var note = await mediator.Send(readNoteCommand);
 
         if (note == null)
             return NotFound($"note with id {requestDto.Id} not found");

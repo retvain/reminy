@@ -47,6 +47,19 @@ public sealed class NoteTests
         result.Content.Should().Be(request.Content).And.NotBe(initialNote.Content);
     }
 
+    [Test]
+    public async Task ReadOneNote_Test()
+    {
+        var note = await _noteInitializer.AddNote();
+        var request = new GetNoteRequestDto { Id = note.Id!.Value };
+
+        var result = await SetUpGlobal.Client.GetNote(request);
+
+        result.Id.Should().Be(request.Id);
+        result.Title.Should().Be(note.Title);
+        result.Content.Should().Be(note.Content);
+    }
+
     [TearDown]
     public async Task TearDown()
         => await _noteInitializer.Clean();

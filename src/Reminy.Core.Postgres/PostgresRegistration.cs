@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Reminy.Core.DomainServices.Note.Ports;
+using Reminy.Core.DomainServices.Notes.Ports;
 using Reminy.Core.Postgres.Contracts;
 using Reminy.Core.Postgres.Stores;
 
