@@ -20,7 +20,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y nano
 COPY --from=build /app/publish .
 
-ENV ASPNETCORE_ENVIRONMENT Staging
+ENV ASPNETCORE_ENVIRONMENT Production
 
 EXPOSE 5000
 
