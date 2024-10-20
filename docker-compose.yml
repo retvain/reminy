@@ -23,17 +23,6 @@ services:
       POSTGRES_PASSWORD: postgres
     networks:
       - reminy
-        
-  reminy-migrate:
-    depends_on:
-      - reminy-pg
-    volumes:
-      - reminy:/app
-    build:
-      context: .
-      dockerfile: docker/migrate/Dockerfile
-    networks:
-      - reminy
 
 networks:
   reminy:
