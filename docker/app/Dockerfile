@@ -20,6 +20,8 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y nano
 COPY --from=build /app/publish .
 
+ENV ASPNETCORE_ENVIRONMENT Staging
+
 EXPOSE 5000
 
 ENTRYPOINT ["dotnet", "Reminy.Core.Host.dll"]

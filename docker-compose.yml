@@ -16,7 +16,7 @@ services:
   reminy-pg:
     image: postgres:17.0
     ports:
-      - 5432:5432
+      - 54377:5432
     environment:
       POSTGRES_DB: reminy
       POSTGRES_USER: postgres
